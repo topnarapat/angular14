@@ -1,0 +1,46 @@
+<div class="p-4">
+  <h2>Books List!</h2>
+  <!-- property binding -->
+  <button (click)="handleClick()" [disabled]="isDisabled">Show Books</button>
+  <br />
+  <!-- one-way binding -->
+  <input type="text" (input)="handleInput($event)" />
+  <p>one-way: {{ myName }}</p>
+  <!-- two-way binding -->
+  <input type="text" [(ngModel)]="myName2" />
+  <p>two-way binding: {{ myName2 }}</p>
+  <hr />
+  <!-- ngIf -->
+  <button (click)="toggleBooks()">Toggle Books</button>
+  <button (click)="isShowing = !isShowing">
+    <!-- <span *ngIf="!isShowing">Show Books</span>
+    <span *ngIf="isShowing">Hide Books</span> -->
+    <ng-container *ngIf="!isShowing">Show Books</ng-container>
+    <ng-container *ngIf="isShowing">Hide Books</ng-container>
+  </button>
+  <ul *ngIf="isShowing">
+    <li>
+      <!-- interpolation -->
+      <img src="{{ src }}" alt="{{ name }}" width="100" />
+      {{ name }} by {{ author }}
+    </li>
+    <li>
+      <img [src]="src2" [alt]="name2" width="100" />
+      {{ name2 }} by {{ author2 }}
+    </li>
+  </ul>
+</div>
+<hr />
+<div class="bg-white">
+  <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Shop</h2>
+
+    <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <ng-container *ngFor="let singleBook of books; let i = index">
+        <app-book (bookEmitter)="addToCart($event)" [book]="singleBook"></app-book>
+      </ng-container>
+
+      <!-- More products... -->
+    </div>
+  </div>
+</div>
